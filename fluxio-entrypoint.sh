@@ -9,8 +9,15 @@ set -e
 FLUXIO_BRANCH="${FLUXIO_BRANCH:-dev}"
 FLUXIO_SYNC_INTERVAL="${FLUXIO_SYNC_INTERVAL:-5}"
 
-if [ -n "$FLUXIO_REPO" ] && [ -n "$FLUXIO_GIT_TOKEN" ]; then
-  FLUXIO_ORIGIN="https://x-access-token:${FLUXIO_GIT_TOKEN}@github.com/${FLUXIO_REPO}.git"
+# Authentification par deploy key SSH : lecture seule, limitee a ce depot,
+# revocable sans toucher aux autres projets.
+if [ -n "$FLUXIO_REPO" ] && [ -n "$FLUXIO_DEPLOY_KEY" ]; then
+  mkdir -p /root/.ssh
+  printf '%s\n' "$FLUXIO_DEPLOY_KEY" | tr -d '\r' > /root/.ssh/id_ed25519
+  chmod 600 /root/.ssh/id_ed25519
+  ssh-keyscan -t ed25519 github.com >> /root/.ssh/known_hosts 2>/dev/null
+  export GIT_SSH_COMMAND="ssh -i /root/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
+  FLUXIO_ORIGIN="git@github.com:${FLUXIO_REPO}.git"
 
   if [ ! -d /app/.git ]; then
     echo "[fluxio] initialisation du depot sur ${FLUXIO_BRANCH}"
@@ -41,7 +48,7 @@ if [ -n "$FLUXIO_REPO" ] && [ -n "$FLUXIO_GIT_TOKEN" ]; then
     done
   ) &
 else
-  echo "[fluxio] sync desactive (FLUXIO_REPO ou FLUXIO_GIT_TOKEN absent) — code fige a l'image"
+  echo "[fluxio] sync desactive (FLUXIO_REPO ou FLUXIO_DEPLOY_KEY absent) — code fige a l'image"
 fi
 
 exec pnpm dev --host 0.0.0.0 --port 3000
