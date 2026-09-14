@@ -11,9 +11,11 @@ FLUXIO_SYNC_INTERVAL="${FLUXIO_SYNC_INTERVAL:-5}"
 
 # Authentification par deploy key SSH : lecture seule, limitee a ce depot,
 # revocable sans toucher aux autres projets.
-if [ -n "$FLUXIO_REPO" ] && [ -n "$FLUXIO_DEPLOY_KEY" ]; then
+# La cle est transmise en base64 : Coolify injecte les variables comme ARG
+# Docker, et une valeur multi-ligne casserait la syntaxe du Dockerfile.
+if [ -n "$FLUXIO_REPO" ] && [ -n "$FLUXIO_DEPLOY_KEY_B64" ]; then
   mkdir -p /root/.ssh
-  printf '%s\n' "$FLUXIO_DEPLOY_KEY" | tr -d '\r' > /root/.ssh/id_ed25519
+  printf '%s' "$FLUXIO_DEPLOY_KEY_B64" | base64 -d > /root/.ssh/id_ed25519
   chmod 600 /root/.ssh/id_ed25519
   ssh-keyscan -t ed25519 github.com >> /root/.ssh/known_hosts 2>/dev/null
   export GIT_SSH_COMMAND="ssh -i /root/.ssh/id_ed25519 -o StrictHostKeyChecking=no"
@@ -48,7 +50,7 @@ if [ -n "$FLUXIO_REPO" ] && [ -n "$FLUXIO_DEPLOY_KEY" ]; then
     done
   ) &
 else
-  echo "[fluxio] sync desactive (FLUXIO_REPO ou FLUXIO_DEPLOY_KEY absent) — code fige a l'image"
+  echo "[fluxio] sync desactive (FLUXIO_REPO ou FLUXIO_DEPLOY_KEY_B64 absent) — code fige a l'image"
 fi
 
 exec pnpm dev --host 0.0.0.0 --port 3000
