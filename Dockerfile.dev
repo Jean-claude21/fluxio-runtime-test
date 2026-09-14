@@ -16,4 +16,8 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 EXPOSE 3000
-CMD ["pnpm", "dev", "--host", "0.0.0.0", "--port", "3000"]
+
+# L'entrypoint lance la boucle de sync git puis passe la main a Vite.
+COPY fluxio-entrypoint.sh /usr/local/bin/fluxio-entrypoint.sh
+RUN chmod +x /usr/local/bin/fluxio-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/fluxio-entrypoint.sh"]
