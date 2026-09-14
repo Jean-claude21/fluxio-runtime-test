@@ -9,6 +9,13 @@ import { nitro } from 'nitro/vite'
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  server: {
+    host: true,
+    // Runtime Fluxio : le conteneur est servi derriere le proxy Coolify sur un
+    // domaine externe. Vite bloque les hotes inconnus par defaut (403).
+    allowedHosts: true,
+    hmr: { clientPort: 443, protocol: 'wss' },
+  },
   plugins: [
     devtools(),
     nitro({ rollupConfig: { external: [/^@sentry\//] } }),
