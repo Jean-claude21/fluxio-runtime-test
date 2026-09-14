@@ -1,3 +1,15 @@
+packages:
+  - .
+
 allowBuilds:
   esbuild: true
   lightningcss: true
+  sharp: true
+
+supportedArchitectures:
+  os:
+    - win32
+    - linux
+  cpu:
+    - x64
+    - arm64
