@@ -13,3 +13,9 @@ __unconfig*
 todos.json
 .remote-diag.sh
 .sync-test.sh
+
+# Local Netlify folder
+.netlify
+.output/
+.netlify/
+.nitro/
