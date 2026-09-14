@@ -4,3 +4,11 @@ packages:
 allowBuilds:
   esbuild: true
   lightningcss: true
+
+supportedArchitectures:
+  os:
+    - win32
+    - linux
+  cpu:
+    - x64
+    - arm64
