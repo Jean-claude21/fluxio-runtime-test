@@ -1,3 +1,5 @@
 [build]
   command = "pnpm build"
-  publish = ".output/public"
+  # Nitro detecte Netlify automatiquement et publie dans dist/
+  # (les fonctions SSR vont dans .netlify/functions-internal).
+  publish = "dist"
