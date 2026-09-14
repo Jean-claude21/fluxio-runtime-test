@@ -4,7 +4,7 @@
 # Le conteneur reste vivant et se met a jour par `git pull` : le serveur Vite
 # garde son process et applique le HMR. Un redeploiement Coolify reconstruirait
 # l'image (~2 min) — ici la boucle de sync ramene le delai a quelques secondes.
-set -e
+# Pas de `set -e` : une panne de sync ne doit jamais tuer le serveur de dev.
 
 FLUXIO_BRANCH="${FLUXIO_BRANCH:-dev}"
 FLUXIO_SYNC_INTERVAL="${FLUXIO_SYNC_INTERVAL:-5}"
