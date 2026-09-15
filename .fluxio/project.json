@@ -1,0 +1,26 @@
+{
+  "fluxioVersion": 1,
+  "slug": "fluxio-runtime-test",
+  "github": {
+    "repo": "Jean-claude21/fluxio-runtime-test",
+    "defaultBranch": "main",
+    "devBranch": "dev"
+  },
+  "neon": {
+    "projectId": "still-snow-74757017",
+    "branches": {
+      "main": "br-noisy-star-b21mr1df",
+      "dev": "br-delicate-breeze-b2tphz5g"
+    }
+  },
+  "netlify": {
+    "siteId": "4c530992-9f77-4600-bde6-3627debb604f",
+    "url": "https://fluxio-runtime-test.netlify.app"
+  },
+  "coolify": {
+    "projectUuid": "v3e6kuhtkgnz38owz9prxo2m",
+    "environmentUuid": "c5nzrdqvlpsl7o6ljnfphj5e",
+    "applicationUuid": "41o7lzfvdcdzqqkjsoyay1xy",
+    "devUrl": "https://41o7lzfvdcdzqqkjsoyay1xy.vttlife.com"
+  }
+}
