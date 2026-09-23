@@ -21,5 +21,9 @@
       }
     }
   ],
+  "database": {
+    "provider": "neon",
+    "ref": "still-snow-74757017"
+  },
   "importedFrom": "provider-detection"
 }
