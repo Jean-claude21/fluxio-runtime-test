@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "name": "fluxio-runtime-test",
+  "environments": [
+    {
+      "kind": "development",
+      "branch": "dev",
+      "url": "https://41o7lzfvdcdzqqkjsoyay1xy.vttlife.com",
+      "hosting": {
+        "provider": "coolify",
+        "ref": "41o7lzfvdcdzqqkjsoyay1xy"
+      }
+    },
+    {
+      "kind": "production",
+      "branch": "main",
+      "url": "https://fluxio-runtime-test.netlify.app",
+      "hosting": {
+        "provider": "netlify",
+        "ref": "4c530992-9f77-4600-bde6-3627debb604f"
+      }
+    }
+  ],
+  "database": {
+    "provider": "neon",
+    "ref": "still-snow-74757017"
+  },
+  "importedFrom": "provider-detection"
+}
